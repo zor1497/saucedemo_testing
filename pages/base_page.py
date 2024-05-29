@@ -1,6 +1,8 @@
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import allure
+from selenium.webdriver.common.action_chains import ActionChains
+
 
 
 class BasePage:
@@ -8,6 +10,7 @@ class BasePage:
     def __init__(self, browser):
         self.browser = browser
         self.wait = WebDriverWait(self.browser, 10)
+        self.action = ActionChains(browser)
 
 
     def open(self):

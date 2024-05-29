@@ -1,5 +1,4 @@
 import allure
-
 from pages.about_page import AboutPage
 from pages.login_page import LoginPage
 
