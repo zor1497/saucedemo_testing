@@ -32,6 +32,6 @@ jobs:
         run: pytest test_login_page.py::test_open_about_page_from_login_page
       - name: test_open_login_page_from_about_page
         if: "github.event.inputs.deployment_target == 'test_open_login_page_from_about_page'"
-        run: pytest test_about_page.py::test_open_about_page_from_login_page
+        run: pytest test_about_page.py::test_open_login_page_from_about_page
 
 
