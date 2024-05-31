@@ -5,7 +5,7 @@ import pytest
 
 
 @pytest.mark.smoke
-@allure.title("Открытие страницы регистрации со страницы 'О Вконтакте'")
+@allure.title("Открытие страницы авторизации со страницы 'О Вконтакте'")
 def test_open_login_page_from_about_page(browser):
     about_page = AboutPage(browser)
     about_page.open()

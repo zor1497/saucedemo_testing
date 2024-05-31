@@ -12,7 +12,6 @@ class BasePage:
         self.wait = WebDriverWait(self.browser, 10)
         self.action = ActionChains(browser)
 
-
     def open(self):
         with allure.step(f"Открытие страницы {self.LINK}"):
             self.browser.get(self.LINK)
