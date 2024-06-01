@@ -13,11 +13,8 @@ class BasePage:
         self.action = ActionChains(browser)
 
     def open(self):
-        with allure.step(f"Открытие страницы {self.LINK}"):
-            self.browser.get(self.LINK)
+        with allure.step(f"Открытие страницы {self.BASE_URL}"):
+            self.browser.get(self.BASE_URL)
 
-    def is_opened(self):
-        with allure.step(f"Проверка, что открылась страница {self.LINK}"):
-            self.wait.until(EC.url_contains(self.LINK))
 
 
