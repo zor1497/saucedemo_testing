@@ -47,6 +47,7 @@ class LoginPage(BasePage):
 
     @allure.step("Заголовок страницы авторизации описывается на английском языке")
     def should_be_english_version(self):
+        print(self.wait.until(EC.visibility_of_element_located(self.LOGIN_MOBILE_HEADER)).text)
         assert self.wait.until(EC.visibility_of_element_located(self.LOGIN_MOBILE_HEADER)).text == "VK for mobile devices"
 
 
