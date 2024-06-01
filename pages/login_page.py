@@ -51,8 +51,9 @@ class LoginPage(BasePage):
 
     def click_on_default_language(self):
         self.wait.until(EC.element_to_be_clickable(self.LANGUAGE_DEFAULT_LINK)).click()
-        assert self.wait.until(
-            EC.visibility_of_element_located(self.LOGIN_MOBILE_HEADER)).text == "ВКонтакте для мобильных устройств"
+        login_mobile_header = self.wait.until(EC.visibility_of_element_located(self.LOGIN_MOBILE_HEADER))
+        print(login_mobile_header.text)
+        assert login_mobile_header.text == "ВКонтакте для мобильных устройств"
 
 
 
