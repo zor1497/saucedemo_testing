@@ -19,3 +19,5 @@ class BasePage:
     def is_opened(self):
         with allure.step(f"Проверка, что открылась страница {self.LINK}"):
             self.wait.until(EC.url_contains(self.LINK))
+
+

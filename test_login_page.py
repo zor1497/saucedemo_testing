@@ -30,3 +30,14 @@ def test_open_ford_developers_page_from_login_page(browser):
     for_developers_page = ForDevelopersPage(browser)
     for_developers_page.is_opened()
 
+
+@pytest.mark.regress
+@allure.title("Изменение языка сайта на английский")
+def test_change_language_on_english(browser):
+    login_page = LoginPage(browser)
+    login_page.open()
+    login_page.click_on_language_link()
+    login_page.type_text_into_language_search_form("English")
+    login_page.click_on_english_language()
+    login_page.should_be_english_version()
+
