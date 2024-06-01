@@ -26,10 +26,10 @@ jobs:
         run: pip install -r requirements.txt
       - name: smoke_tests
         if: "github.event.inputs.deployment_target == 'smoke tests'"
-        run: pytest -m smoke --language=ru
+        run: pytest --language=ru -m smoke
       - name: regress_tests
         if: "github.event.inputs.deployment_target == 'regress tests'"
-        run: pytest -m regress --language=ru
+        run: pytest --language=ru -m regress
       - name: all_tests
         if: "github.event.inputs.deployment_target == 'all tests'"
         run: pytest --language=ru
