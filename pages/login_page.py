@@ -15,7 +15,7 @@ class LoginPage(BasePage):
     CLOSE_LANGUAGE_LIST_BUTTON = ("xpath", "//div[@class='box_controls_wrap']//button")
     LANGUAGE_SEARCH_FROM = ("id", "language_search_form")
     LANGUAGE_SEARCH_BUTTON = ("xpath", "(//div[@class='ui_search_input_block']//button)[1]")
-    LANGUAGE_LINK = ("xpath", "(//a[text()='все языки »'])[1]")
+    LANGUAGE_LINK = ("xpath", "(//div[@class='footer_lang'])[1]//a[3]")
     LANGUAGES_IN_FIRST_COLUMN = ("xpath", "//div[@class='language_column fl_l']//a")
     LOGIN_MOBILE_HEADER = ("xpath", "//div[@class='login_mobile_header']")
 
