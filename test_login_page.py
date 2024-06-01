@@ -36,6 +36,7 @@ def test_open_ford_developers_page_from_login_page(browser):
 def test_change_language_on_english(browser):
     login_page = LoginPage(browser)
     login_page.open()
+    login_page.click_on_default_language()
     login_page.click_on_language_link()
     login_page.type_text_into_language_search_form("English")
     login_page.click_on_english_language()

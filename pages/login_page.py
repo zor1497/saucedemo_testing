@@ -18,6 +18,7 @@ class LoginPage(BasePage):
     LANGUAGE_LINK = ("xpath", "(//div[@class='footer_lang'])[1]//a[3]")
     LANGUAGES_IN_FIRST_COLUMN = ("xpath", "//div[@class='language_column fl_l']//a")
     LOGIN_MOBILE_HEADER = ("xpath", "//div[@class='login_mobile_header']")
+    LANGUAGE_DEFAULT_LINK = ("xpath", "(//div[@class='footer_lang'])[1]//a[1]")
 
 
     @allure.step("Нажатие на ссылку 'О Вконтакте'")
@@ -47,6 +48,15 @@ class LoginPage(BasePage):
     @allure.step("Заголовок страницы авторизации описывается на английском языке")
     def should_be_english_version(self):
         assert self.wait.until(EC.visibility_of_element_located(self.LOGIN_MOBILE_HEADER)).text == "VK for mobile devices"
+
+    def click_on_default_language(self):
+        self.wait.until(EC.element_to_be_clickable(self.LANGUAGE_DEFAULT_LINK)).click()
+        assert self.wait.until(
+            EC.visibility_of_element_located(self.LOGIN_MOBILE_HEADER)).text == "ВКонтакте для мобильных устройств"
+
+
+
+        
 
 
 
