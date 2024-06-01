@@ -9,7 +9,7 @@ class BasePage:
 
     def __init__(self, browser):
         self.browser = browser
-        self.wait = WebDriverWait(self.browser, 10)
+        self.wait = WebDriverWait(self.browser, 20)
         self.action = ActionChains(browser)
 
     def open(self):
