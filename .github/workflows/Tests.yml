@@ -60,7 +60,7 @@ jobs:
       - name: Store generated report
         uses: actions/upload-artifact@v4
         with:
-          name: github_pages
+          name: _site
           path: site_for_report
 
   publish-report:
@@ -71,10 +71,7 @@ jobs:
       - name: Download all artifacts
         uses: actions/download-artifact@v4
       - name: Upload pages artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: github-pages
-          path: _site
+        uses: actions/upload-pages-artifact@v3.0.1
       - name: Deploy to gitHub pages
         id: deployment
         uses: actions/deploy-pages@v4
