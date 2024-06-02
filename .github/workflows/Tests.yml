@@ -34,12 +34,12 @@ jobs:
         run: pytest -m smoke --alluredir=ar
       - name: Run all tests
         if: "github.event.inputs.deployment_target == 'Run all tests'"
-        run: pytest --alluredir=ar
+        run: pytest --alluredir=allure-result
       - name: Store allure results
         uses: actions/upload-artifact@v4
         with:
           name: allure-results
-          path: ar
+          path: allure-result
 
   generate-report:
     runs-on: ubuntu-latest
@@ -53,15 +53,15 @@ jobs:
           java-version: '21'
       - name: Install allure
         run: sudo wget https://github.com/allure-framework/allure2/releases/download/2.29.0/allure-2.29.0.tgz && tar -xvzf allure-2.29.0.tgz -C /opt/ && sudo ln -s /opt/allure-2.29.0/bin/allure /usr/bin/allure
-      - name: Download all artifacts
+      - name: Download artifacts
         uses: actions/download-artifact@v4
       - name: Generate report
-        run: allure generate -c allure-results -o site_for_report
+        run: allure generate -c allure-results -o _site
       - name: Store generated report
         uses: actions/upload-artifact@v4
         with:
           name: _site
-          path: site_for_report
+          path: _site
 
   publish-report:
     runs-on: ubuntu-latest
