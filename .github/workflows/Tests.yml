@@ -51,12 +51,12 @@ jobs:
       - name: Download all artifacts
         uses: actions/download-artifact@v4
       - name: Generate report
-        run: allure generate -c allure-results -o _site
+        run: allure generate -c allure-results -o site_for_report
       - name: Store generated report
         uses: actions/upload-artifact@v4
         with:
-          name: report_site
-          path: _site
+          name: _site
+          path: site_for_report
 
   publish-report:
     runs-on: ubuntu-latest
