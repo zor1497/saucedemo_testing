@@ -7,9 +7,8 @@ on:
         required: true
         type: choice
         options:
-          - smoke tests
-          - regress tests
-          - all tests
+          - Run smoke tests
+          - Run all tests
 jobs:
   test:
     runs-on: ubuntu-latest
