@@ -12,6 +12,7 @@ class LoginPage(BasePage):
     CREATE_ACC_BUTTON = ("xpath", "//span[text()='Создать аккаунт']")
     FOR_DEVELOPERS_LINK = ("xpath", "(//a[@href='https://dev.vk.com'])[1]")
     MESSAGE_ERROR_AREA = ("xpath", "//div[@class='VkIdForm__messageError']")
+    CLUE_ICON_ABOUT_SAVE_SIGN = ("xpath", "//div[@class='VkIdCheckbox__rightIcon']")
 
     @allure.step("Нажатие на ссылку 'О Вконтакте'")
     def click_on_about_vk_link(self):
@@ -36,9 +37,22 @@ class LoginPage(BasePage):
     def click_on_sign_in_button(self):
         self.wait.until(EC.visibility_of_element_located(self.SIGN_IN_BUTTON)).click()
 
+    @allure.step("Нажатие на иконку подсказки о сохранении входа")
+    def click_on_save_sign_clue_icon(self):
+        clue_icon_about_save_sign = self.wait.until(EC.visibility_of_element_located(self.CLUE_ICON_ABOUT_SAVE_SIGN))
+        clue_icon_about_save_sign.click()
+        self.wait.until(EC.text_to_be_present_in_element_attribute(self.CLUE_ICON_ABOUT_SAVE_SIGN, "aria-expanded", "true"))
+        assert clue_icon_about_save_sign.get_attribute("aria-expanded") == "true"
+
     @allure.step("Отображение сообщения об ошибке")
     def should_be_message_error(self):
         self.wait.until(EC.visibility_of_element_located(self.MESSAGE_ERROR_AREA))
+
+
+
+
+
+
 
 
 
