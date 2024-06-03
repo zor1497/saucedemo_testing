@@ -8,6 +8,7 @@ on:
         type: choice
         options:
           - Run smoke tests
+          - Run regress tests
           - Run all tests
 
 permissions:
@@ -35,6 +36,9 @@ jobs:
       - name: Run all tests
         if: "github.event.inputs.deployment_target == 'Run all tests'"
         run: pytest --alluredir=allure-result
+      - name: Run regress tests
+        if: "github.event.inputs.deployment_target == 'Run regress tests'"
+        run: pytest -m regress --alluredir=allure-result
       - name: Store allure results
         uses: actions/upload-artifact@v4
         with:

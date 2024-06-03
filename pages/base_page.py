@@ -4,17 +4,21 @@ import allure
 from selenium.webdriver.common.action_chains import ActionChains
 
 
-
 class BasePage:
 
     def __init__(self, browser):
         self.browser = browser
-        self.wait = WebDriverWait(self.browser, 20)
+        self.wait = WebDriverWait(self.browser, 10)
         self.action = ActionChains(browser)
+        self.base_url = "https://www.saucedemo.com"
 
-    def open(self):
-        with allure.step(f"Открытие страницы {self.BASE_URL}"):
-            self.browser.get(self.BASE_URL)
+    def find_element(self, locator):
+        return self.wait.until(EC.visibility_of_element_located(locator), f"Элемент с локатором {locator} не найден")
+
+    def get_current_url(self):
+        return self.browser.current_url
+
+
 
 
 
