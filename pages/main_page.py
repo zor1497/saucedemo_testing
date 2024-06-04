@@ -1,14 +1,17 @@
-from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 import allure
 
 
 class MainPage(BasePage):
 
+    # LOCATORS
+
     USERNAME_FIELD = ("id", "user-name")
     PASSWORD_FIELD = ("id", "password")
     LOGIN_BUTTON = ("id", "login-button")
     LOGIN_ERROR_NOTIFY = ("xpath", "//h3[@data-test='error']")
+
+    # ACTIONS
 
     @allure.step("Открытие главной страницы")
     def open(self):
@@ -34,6 +37,8 @@ class MainPage(BasePage):
         login_button = self.find_element(self.LOGIN_BUTTON)
         login_button.click()
 
+    # SHOULD BE
+
     @allure.step("Открытие страницы Inventory")
     def should_be_open_inventory_page(self):
         assert "inventory" in self.get_current_url(), "Страница Inventory не открылась"
@@ -49,6 +54,13 @@ class MainPage(BasePage):
         login_error_notify = self.find_element(self.LOGIN_ERROR_NOTIFY)
         assert login_error_notify.text == "Epic sadface: Password is required", \
             "Уведомление о незаполненном пароле не отображается"
+
+    @allure.step("Отображение уведомления о заблокированном пользователе")
+    def should_be_error_about_locked_user(self):
+        login_error_notify = self.find_element(self.LOGIN_ERROR_NOTIFY)
+        assert login_error_notify.text == "Epic sadface: Sorry, this user has been locked out.", \
+            "Уведомление о заблокированном пользователе не отображается"
+
 
 
 
