@@ -12,7 +12,7 @@ class BasePage:
         self.browser = browser
         self.wait = WebDriverWait(self.browser, 10)
         self.action = ActionChains(browser)
-        self.base_url = "https://www.saucedemo.com"
+        self.base_url = "https://www.saucedemo.com/"
 
     def find_element(self, locator):
         return self.wait.until(EC.visibility_of_element_located(locator), f"Элемент с локатором {locator} не найден")
@@ -20,10 +20,14 @@ class BasePage:
     def get_current_url(self):
         return self.browser.current_url
 
-    @allure.step("Открытие корзины")
+    def is_opened_page(self, exp_page, act_page):
+        return exp_page == act_page
+
+    @allure.step("Открытие страницы корзины")
     def open_basket(self):
         basket_link = self.find_element(self.BASKET_LINK)
         basket_link.click()
+        assert self.is_opened_page(self.get_current_url(), "https://www.saucedemo.com/cart.html")
 
 
 

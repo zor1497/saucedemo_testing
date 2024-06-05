@@ -15,7 +15,7 @@ class BasketPage(BasePage):
 
     # SHOULD BE
 
-    @allure.step("Присутствие добавленного товара в корзине")
+    @allure.step("Проверка присутствия добавленного товара в корзине")
     def should_be_item_in_basket(self, inv_item):
         bask_item = {
             "name": self.find_element(self.ITEM).find_element(*self.ITEM_NAME).text,
@@ -26,7 +26,7 @@ class BasketPage(BasePage):
         assert inv_item["desc"] == bask_item["desc"], "Описание товара не совпадает"
         assert inv_item["price"] == bask_item["price"], "Цена товара не совпадает"
 
-    @allure.step("Присутствие всех добавленных товаров в корзине")
+    @allure.step("Проверка присутствия всех добавленных товаров в корзине")
     def should_be_all_items_in_basket(self, inv_items):
         bask_items = []
         for _item in self.browser.find_elements(*self.ITEM):

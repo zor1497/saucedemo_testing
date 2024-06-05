@@ -9,8 +9,8 @@ class InventoryPage(BasePage):
     ITEM_NAME = ("xpath", ".//div[@data-test='inventory-item-name']")
     ITEM_DESC = ("xpath", ".//div[@data-test='inventory-item-desc']")
     ITEM_PRICE = ("xpath", ".//div[@data-test='inventory-item-price']")
-    ADD_ITEM_TO_BASKET_BUTTON = ("xpath", ".//button")
-    REMOVE_ITEM_FROM_BASKET_BUTTON = ("xpath", ".//button")
+    ADD_ITEM_TO_BASKET_BUTTON = ("xpath", ".//button[@id[contains(.,'add')]]")
+    REMOVE_ITEM_FROM_BASKET_BUTTON = ("xpath", ".//button[@id[contains(.,'remove')]]")
 
     # ACTIONS
     @allure.step("Добавление одного товара в корзину")
@@ -20,7 +20,9 @@ class InventoryPage(BasePage):
             "desc": self.find_element(self.ITEM).find_element(*self.ITEM_DESC).text,
             "price": self.find_element(self.ITEM).find_element(*self.ITEM_PRICE).text
         }
-        self.find_element(self.ITEM).find_element(*self.ADD_ITEM_TO_BASKET_BUTTON).click()
+        add_item_to_basket_button = self.find_element(self.ITEM).find_element(*self.ADD_ITEM_TO_BASKET_BUTTON)
+        add_item_to_basket_button.click()
+        assert "Remove" == self.find_element(self.ITEM).find_element(*self.REMOVE_ITEM_FROM_BASKET_BUTTON).text
         return item
 
     @allure.step("Добавление всех товаров в корзину")
@@ -32,7 +34,9 @@ class InventoryPage(BasePage):
                 'desc': _item.find_element(*self.ITEM_DESC).text,
                 'price': _item.find_element(*self.ITEM_PRICE).text
             }
-            _item.find_element(*self.ADD_ITEM_TO_BASKET_BUTTON).click()
+            add_item_to_basket_button = _item.find_element(*self.ADD_ITEM_TO_BASKET_BUTTON)
+            add_item_to_basket_button.click()
+            assert "Remove" == self.find_element(self.ITEM).find_element(*self.REMOVE_ITEM_FROM_BASKET_BUTTON).text
             items.append(item)
         return items
 

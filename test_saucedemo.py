@@ -31,7 +31,7 @@ def test_auth_with_valid_login_and_empty_password(browser):
 
 @pytest.mark.regress
 @allure.title("Авторизация под пользователем с заблокированной учетной записью")
-def test_auth_with_valid_login_and_password(browser):
+def test_auth_with_locked_account(browser):
     main_page = MainPage(browser)
     main_page.open()
     main_page.auth("locked_out_user", "secret_sauce")
