@@ -1,6 +1,7 @@
 import allure
 import pytest
 from pages.basket_page import BasketPage
+from pages.checkout_page import CheckoutPage
 from pages.inventory_page import InventoryPage
 from pages.main_page import MainPage
 
@@ -100,3 +101,40 @@ def test_sort_items_z_a(browser):
     inventory_page = InventoryPage(browser)
     inventory_page.sort_items("za")
     inventory_page.should_be_items_sort_z_a()
+
+
+@pytest.mark.regress
+@allure.title("Оформление заказа с незаполненным именем, фамилией, индекса получателя")
+def test_order_with_empty_recipient_form(browser):
+    main_page = MainPage(browser)
+    main_page.open()
+    main_page.auth("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(browser)
+    inventory_page.open_item_page()
+    inventory_page.add_item_into_basket()
+    inventory_page.open_basket()
+    basket_page = BasketPage(browser)
+    basket_page.click_on_checkout_button()
+    checkout_page = CheckoutPage(browser)
+    checkout_page.fill_recipient_form("", "", "")
+    checkout_page.click_on_continue_button()
+    checkout_page.should_be_empty_first_name_notify()
+
+
+@pytest.mark.regress
+@allure.title("Оформление заказа с незаполненным именем получателя")
+def test_order_with_empty_first_name_recipient(browser):
+    main_page = MainPage(browser)
+    main_page.open()
+    main_page.auth("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(browser)
+    inventory_page.open_item_page()
+    inventory_page.add_item_into_basket()
+    inventory_page.open_basket()
+    basket_page = BasketPage(browser)
+    basket_page.click_on_checkout_button()
+    checkout_page = CheckoutPage(browser)
+    checkout_page.fill_recipient_form("", "Ivanov", "155258")
+    checkout_page.click_on_continue_button()
+    checkout_page.should_be_empty_first_name_notify()
+

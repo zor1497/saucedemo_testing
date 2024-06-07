@@ -11,7 +11,12 @@ class BasketPage(BasePage):
     ITEM_DESC = ("xpath", ".//div[@data-test='inventory-item-desc']")
     ITEM_PRICE = ("xpath", ".//div[@data-test='inventory-item-price']")
     REMOVE_ITEM_FROM_BASKET_BUTTON = ("xpath", ".//button")
+    CHECKOUT_BUTTON = ("id", "checkout")
 
+    # ACTIONS
+    @allure.step("Открытие страницы заполнения данных о получателе")
+    def click_on_checkout_button(self):
+        self.find_element(self.CHECKOUT_BUTTON).click()
 
     # SHOULD BE
 
