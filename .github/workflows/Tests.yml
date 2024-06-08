@@ -52,7 +52,7 @@ jobs:
       - name: Unzip historical results
         run: mkdir allure-results github-pages github-pages-history && unzip last-allure-result.zip -d allure-results && unzip last-github-page.zip -d github-pages && tar -xvf github-pages/artifact.tar -C github-pages-history
       - name: Copy github-pages-history into allure-results
-        run: cp github-pages-history/history/* allure-results
+        run: cp -r github-pages-history/history allure-results
       - name: Store allure history
         uses: actions/upload-artifact@v4
         with:
