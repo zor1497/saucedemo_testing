@@ -20,7 +20,6 @@ jobs:
   run-tests:
     runs-on: ubuntu-latest
     name: Run tests
-    needs: download-historical-reports
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
