@@ -30,8 +30,6 @@ jobs:
         run: sudo apt-get install google-chrome-stable
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
       - name: Run smoke tests
         if: "github.event.inputs.deployment_target == 'Run smoke tests'"
         run: pytest -m smoke --alluredir=allure-results
@@ -44,7 +42,7 @@ jobs:
       - name: Store allure results
         uses: actions/upload-artifact@v4
         with:
-          name: new-allure-results
+          name: allure-results
           path: allure-results
 
   generate-report:
@@ -62,7 +60,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v4
       - name: Generate report
-        run: allure generate -c new-allure-results -o _site
+        run: allure generate -c allure-results -o _site
       - name: Store generated report
         uses: actions/upload-artifact@v4
         with:

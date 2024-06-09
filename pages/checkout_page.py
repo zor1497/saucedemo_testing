@@ -47,5 +47,14 @@ class CheckoutPage(BasePage):
         error_notify = self.find_element(self.ERROR_NOTIFY).text
         assert error_notify == "Error: First Name is required"
 
+    @allure.step("Проверка отображения уведомления о незаполненной фамилии получателя")
+    def should_be_empty_last_name_notify(self):
+        error_notify = self.find_element(self.ERROR_NOTIFY).text
+        assert error_notify == "Error: Last Name is required"
+
+    @allure.step("Проверка отображения уведомления о незаполненном индексе получателя")
+    def should_be_empty_postcode_notify(self):
+        error_notify = self.find_element(self.ERROR_NOTIFY).text
+        assert error_notify == "Error: Postal Code is required"
 
 

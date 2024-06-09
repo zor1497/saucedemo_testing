@@ -138,3 +138,37 @@ def test_order_with_empty_first_name_recipient(browser):
     checkout_page.click_on_continue_button()
     checkout_page.should_be_empty_first_name_notify()
 
+@pytest.mark.regress
+@allure.title("Оформление заказа с незаполненной фамилией получателя")
+def test_order_with_empty_last_name_recipient(browser):
+    main_page = MainPage(browser)
+    main_page.open()
+    main_page.auth("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(browser)
+    inventory_page.open_item_page()
+    inventory_page.add_item_into_basket()
+    inventory_page.open_basket()
+    basket_page = BasketPage(browser)
+    basket_page.click_on_checkout_button()
+    checkout_page = CheckoutPage(browser)
+    checkout_page.fill_recipient_form("Ivan", "", "155258")
+    checkout_page.click_on_continue_button()
+    checkout_page.should_be_empty_last_name_notify()
+
+@pytest.mark.regress
+@allure.title("Оформление заказа с незаполненном индексе получателя")
+def test_order_with_empty_last_name_recipient(browser):
+    main_page = MainPage(browser)
+    main_page.open()
+    main_page.auth("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(browser)
+    inventory_page.open_item_page()
+    inventory_page.add_item_into_basket()
+    inventory_page.open_basket()
+    basket_page = BasketPage(browser)
+    basket_page.click_on_checkout_button()
+    checkout_page = CheckoutPage(browser)
+    checkout_page.fill_recipient_form("Ivan", "Ivanov", "")
+    checkout_page.click_on_continue_button()
+    checkout_page.should_be_empty_postcode_notify()
+
