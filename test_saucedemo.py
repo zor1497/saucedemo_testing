@@ -3,6 +3,7 @@ import pytest
 from pages.basket_page import BasketPage
 from pages.checkout_page import CheckoutPage
 from pages.inventory_page import InventoryPage
+from pages.item_page import ItemPage
 from pages.main_page import MainPage
 
 
@@ -46,8 +47,9 @@ def test_add_one_item_into_basket(browser):
     main_page.auth("standard_user", "secret_sauce")
     inventory_page = InventoryPage(browser)
     inventory_page.open_item_page()
-    item = inventory_page.add_item_into_basket()
-    inventory_page.open_basket()
+    item_page = ItemPage(browser)
+    item = item_page.add_item_into_basket()
+    item_page.open_basket()
     basket_page = BasketPage(browser)
     basket_page.should_be_item_in_basket(item)
 
@@ -111,8 +113,9 @@ def test_order_with_empty_recipient_form(browser):
     main_page.auth("standard_user", "secret_sauce")
     inventory_page = InventoryPage(browser)
     inventory_page.open_item_page()
-    inventory_page.add_item_into_basket()
-    inventory_page.open_basket()
+    item_page = ItemPage(browser)
+    item_page.add_item_into_basket()
+    item_page.open_basket()
     basket_page = BasketPage(browser)
     basket_page.click_on_checkout_button()
     checkout_page = CheckoutPage(browser)
@@ -129,8 +132,9 @@ def test_order_with_empty_first_name_recipient(browser):
     main_page.auth("standard_user", "secret_sauce")
     inventory_page = InventoryPage(browser)
     inventory_page.open_item_page()
-    inventory_page.add_item_into_basket()
-    inventory_page.open_basket()
+    item_page = ItemPage(browser)
+    item_page.add_item_into_basket()
+    item_page.open_basket()
     basket_page = BasketPage(browser)
     basket_page.click_on_checkout_button()
     checkout_page = CheckoutPage(browser)
@@ -146,8 +150,9 @@ def test_order_with_empty_last_name_recipient(browser):
     main_page.auth("standard_user", "secret_sauce")
     inventory_page = InventoryPage(browser)
     inventory_page.open_item_page()
-    inventory_page.add_item_into_basket()
-    inventory_page.open_basket()
+    item_page = ItemPage(browser)
+    item_page.add_item_into_basket()
+    item_page.open_basket()
     basket_page = BasketPage(browser)
     basket_page.click_on_checkout_button()
     checkout_page = CheckoutPage(browser)
@@ -163,12 +168,29 @@ def test_order_with_empty_last_name_recipient(browser):
     main_page.auth("standard_user", "secret_sauce")
     inventory_page = InventoryPage(browser)
     inventory_page.open_item_page()
-    inventory_page.add_item_into_basket()
-    inventory_page.open_basket()
+    item_page = ItemPage(browser)
+    item_page.add_item_into_basket()
+    item_page.open_basket()
     basket_page = BasketPage(browser)
     basket_page.click_on_checkout_button()
     checkout_page = CheckoutPage(browser)
     checkout_page.fill_recipient_form("Ivan", "Ivanov", "")
     checkout_page.click_on_continue_button()
     checkout_page.should_be_empty_postcode_notify()
+
+
+@pytest.mark.regress
+@allure.title("Удаление товара из корзины со страницы товара")
+def test_remove_item_from_basket_on_item_page(browser):
+    main_page = MainPage(browser)
+    main_page.open()
+    main_page.auth("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(browser)
+    inventory_page.open_item_page()
+    item_page = ItemPage(browser)
+    item_page.add_item_into_basket()
+    name_deleted_item = item_page.click_on_remove_item_button()
+    item_page.open_basket()
+    basket_page = BasketPage(browser)
+    basket_page.should_be_not_item_in_basket(name_deleted_item)
 

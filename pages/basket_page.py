@@ -17,6 +17,7 @@ class BasketPage(BasePage):
     @allure.step("Открытие страницы заполнения данных о получателе")
     def click_on_checkout_button(self):
         self.find_element(self.CHECKOUT_BUTTON).click()
+        assert self.is_opened_page(self.browser.current_url, "https://www.saucedemo.com/checkout-step-one.html")
 
     # SHOULD BE
 
@@ -47,3 +48,21 @@ class BasketPage(BasePage):
                        inv_item['desc'] == bask_item['desc'] and
                        inv_item['price'] == bask_item['price']
                        for bask_item in bask_items)
+
+
+    @allure.step("Проверка отсутствия товара в корзине")
+    def should_be_not_item_in_basket(self, deleted_item_name):
+        if self.are_present_elements(self.ITEM):
+            is_deleted_flag = True
+            items = self.browser.find_elements(self.ITEM_NAME)
+            for item in items:
+                item_name = item.text
+                if deleted_item_name == item_name:
+                    is_deleted_flag = False
+                    break
+            assert is_deleted_flag
+
+
+
+
+

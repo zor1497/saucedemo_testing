@@ -15,17 +15,6 @@ class InventoryPage(BasePage):
     PRODUCT_SORT_CONTAINER = ("xpath", "//select[@data-test='product-sort-container']")
 
     # ACTIONS
-    @allure.step("Добавление товара в корзину")
-    def add_item_into_basket(self):
-        item = {
-            "name": self.find_element(self.ITEM).find_element(*self.ITEM_NAME).text,
-            "desc": self.find_element(self.ITEM).find_element(*self.ITEM_DESC).text,
-            "price": self.find_element(self.ITEM).find_element(*self.ITEM_PRICE).text
-        }
-        add_item_to_basket_button = self.find_element(self.ITEM).find_element(*self.ADD_ITEM_TO_BASKET_BUTTON)
-        add_item_to_basket_button.click()
-        assert "Remove" == self.find_element(self.ITEM).find_element(*self.REMOVE_ITEM_FROM_BASKET_BUTTON).text
-        return item
 
     @allure.step("Добавление всех товаров в корзину")
     def add_all_items_into_basket(self):

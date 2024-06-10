@@ -23,6 +23,18 @@ class BasePage:
     def is_opened_page(self, exp_page, act_page):
         return exp_page == act_page
 
+    def is_present_element(self, locator):
+        from selenium.common import NoSuchElementException
+        try:
+            self.browser.find_element(*locator)
+        except NoSuchElementException:
+            return False
+        return True
+
+    def are_present_elements(self, locator):
+        items_list = self.browser.find_elements(*locator)
+        return len(items_list) > 0
+
     @allure.step("Открытие страницы корзины")
     def open_basket(self):
         basket_link = self.find_element(self.BASKET_LINK)

@@ -11,9 +11,9 @@ class CheckoutPage(BasePage):
     CONTINUE_BUTTON = ("id", "continue")
     ERROR_NOTIFY = ("xpath", "//h3[@data-test='error']")
 
+    # ACTIONS
 
     @allure.step("Заполнение данных о получателе")
-    # ACTIONS
     def fill_recipient_form(self, first_name, last_name, postal_code):
         self.fill_first_name(first_name)
         self.fill_last_name(last_name)
