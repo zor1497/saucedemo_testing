@@ -194,3 +194,18 @@ def test_remove_item_from_basket_on_item_page(browser):
     basket_page = BasketPage(browser)
     basket_page.should_be_not_item_in_basket(name_deleted_item)
 
+
+@pytest.mark.regress
+@allure.title("Удаление всех товаров из корзины со страницы 'Inventory'")
+def test_remove_item_from_basket_on_inventory_page(browser):
+    main_page = MainPage(browser)
+    main_page.open()
+    main_page.auth("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(browser)
+    inventory_page.add_all_items_into_basket()
+    inventory_page.remove_all_items_from_basket()
+    inventory_page.open_basket()
+    basket_page = BasketPage(browser)
+    basket_page.should_be_basket_empty()
+
+

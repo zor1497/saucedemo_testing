@@ -50,9 +50,9 @@ class BasketPage(BasePage):
                        for bask_item in bask_items)
 
 
-    @allure.step("Проверка отсутствия товара в корзине")
+    @allure.step("Проверка отсутствия конкретного товара в корзине")
     def should_be_not_item_in_basket(self, deleted_item_name):
-        if self.are_present_elements(self.ITEM):
+        if len(self.find_elements(self.ITEM)) > 0:
             is_deleted_flag = True
             items = self.browser.find_elements(self.ITEM_NAME)
             for item in items:
@@ -62,6 +62,9 @@ class BasketPage(BasePage):
                     break
             assert is_deleted_flag
 
+    @allure.step("Проверка отсутствия товаров в корзине")
+    def should_be_basket_empty(self):
+        assert len(self.find_elements(self.ITEM_NAME)) == 0
 
 
 

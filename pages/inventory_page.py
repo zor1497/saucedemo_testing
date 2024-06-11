@@ -80,6 +80,16 @@ class InventoryPage(BasePage):
             assert max_name >= item_name
             max_name = item_name
 
+    @allure.step("Удаление всех товаров из корзины")
+    def remove_all_items_from_basket(self):
+        remove_buttons = self.find_elements(self.REMOVE_ITEM_FROM_BASKET_BUTTON)
+        assert len(remove_buttons) > 0, "Товаров в корзине нет"
+        for button in remove_buttons:
+            button.click()
+        assert len(self.find_elements(self.REMOVE_ITEM_FROM_BASKET_BUTTON)) == 0, "В корзине остались товары"
+
+
+
 
 
 

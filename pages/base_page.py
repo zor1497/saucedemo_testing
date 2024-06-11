@@ -1,3 +1,4 @@
+from selenium.common import TimeoutException
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import allure
@@ -10,12 +11,21 @@ class BasePage:
 
     def __init__(self, browser):
         self.browser = browser
-        self.wait = WebDriverWait(self.browser, 10)
+        self.wait = WebDriverWait(self.browser, 5)
         self.action = ActionChains(browser)
         self.base_url = "https://www.saucedemo.com/"
 
+
+    # BASE_ACTIONS
     def find_element(self, locator):
         return self.wait.until(EC.visibility_of_element_located(locator), f"Элемент с локатором {locator} не найден")
+
+    def find_elements(self, locator):
+        try:
+            elements = self.wait.until(EC.visibility_of_all_elements_located(locator))
+            return elements
+        except TimeoutException:
+            return []
 
     def get_current_url(self):
         return self.browser.current_url
@@ -31,10 +41,8 @@ class BasePage:
             return False
         return True
 
-    def are_present_elements(self, locator):
-        items_list = self.browser.find_elements(*locator)
-        return len(items_list) > 0
 
+    # ACTIONS
     @allure.step("Открытие страницы корзины")
     def open_basket(self):
         basket_link = self.find_element(self.BASKET_LINK)
