@@ -27,5 +27,5 @@ class ItemPage(BasePage):
     def click_on_remove_item_button(self):
         name_deleted_item = self.find_element(self.ITEM_NAME).text
         self.find_element(self.REMOVE_ITEM_FROM_BASKET_BUTTON).click()
-        assert self.is_present_element(self.REMOVE_ITEM_FROM_BASKET_BUTTON) == False
+        assert self.find_element(self.REMOVE_ITEM_FROM_BASKET_BUTTON) == "Элемент не найден"
         return name_deleted_item

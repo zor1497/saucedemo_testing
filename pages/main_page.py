@@ -14,7 +14,7 @@ class MainPage(BasePage):
     @allure.step("Открытие главной страницы")
     def open(self):
         self.browser.get(self.base_url)
-        assert self.is_opened_page(self.base_url, self.get_current_url())
+        assert self.base_url == self.get_current_url()
 
     @allure.step("Прохождение авторизации")
     def auth(self, login, password):

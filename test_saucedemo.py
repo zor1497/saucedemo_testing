@@ -208,4 +208,15 @@ def test_remove_item_from_basket_on_inventory_page(browser):
     basket_page = BasketPage(browser)
     basket_page.should_be_basket_empty()
 
+@pytest.mark.smoke
+@allure.title("Выход из системы")
+def test_logout(browser):
+    main_page = MainPage(browser)
+    main_page.open()
+    main_page.auth("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(browser)
+    inventory_page.open_sidebar()
+    inventory_page.click_on_logout_link()
+
+
 
