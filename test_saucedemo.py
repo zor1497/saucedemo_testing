@@ -2,9 +2,11 @@ import allure
 import pytest
 from pages.basket_page import BasketPage
 from pages.checkout_page import CheckoutPage
+from pages.complete_page import CompletePage
 from pages.inventory_page import InventoryPage
 from pages.item_page import ItemPage
 from pages.main_page import MainPage
+from pages.overview_page import OverviewPage
 
 
 @pytest.mark.smoke
@@ -218,5 +220,26 @@ def test_logout(browser):
     inventory_page.open_sidebar()
     inventory_page.click_on_logout_link()
 
+
+@pytest.mark.smoke
+@allure.title("Стандартное оформление заказа")
+def test_standard_order(browser):
+    main_page = MainPage(browser)
+    main_page.open()
+    main_page.auth("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(browser)
+    inventory_page.open_item_page()
+    item_page = ItemPage(browser)
+    item_page.add_item_into_basket()
+    item_page.open_basket()
+    basket_page = BasketPage(browser)
+    basket_page.click_on_checkout_button()
+    checkout_page = CheckoutPage(browser)
+    checkout_page.fill_recipient_form("Ivan", "Ivanov", "12345")
+    checkout_page.click_on_continue_button()
+    overview_page = OverviewPage(browser)
+    overview_page.click_on_finish_button()
+    complete_page = CompletePage(browser)
+    complete_page.should_be_success_order_header()
 
 
