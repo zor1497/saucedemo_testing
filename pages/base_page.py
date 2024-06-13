@@ -15,6 +15,7 @@ class BasePage:
     ABOUT_SIDEBAR_LINK = ("id", "about_sidebar_link")
     LOGOUT_SIDEBAR_LINK = ("id", "logout_sidebar_link")
     RESET_SIDEBAR_LINK = ("id", "reset_sidebar_link")
+    TITLE = ("xpath", "//span[@data-test='title']")
 
     # CONSTRUCTOR
     def __init__(self, browser):
