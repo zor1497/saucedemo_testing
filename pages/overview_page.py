@@ -6,7 +6,7 @@ from pages.base_page import BasePage
 class OverviewPage(BasePage):
     # LOCATORS
     FINISH_BUTTON = ("id", "finish")
-    CANCEL_BUTTON = ("id", "finish")
+    CANCEL_BUTTON = ("id", "cancel")
 
     # ACTIONS
     @allure.step("Переход на страницу 'Complete'")
