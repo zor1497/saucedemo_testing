@@ -243,3 +243,29 @@ def test_standard_order(browser):
     complete_page.should_be_success_order_header()
 
 
+@pytest.mark.regress
+@allure.title("Открытие страницы социальной сети Twitter")
+def test_open_twitter(browser):
+    main_page = MainPage(browser)
+    main_page.open()
+    main_page.auth("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(browser)
+    inventory_page.click_on_social_link("twitter")
+
+@pytest.mark.regress
+@allure.title("Открытие страницы социальной сети Facebook")
+def test_open_facebook(browser):
+    main_page = MainPage(browser)
+    main_page.open()
+    main_page.auth("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(browser)
+    inventory_page.click_on_social_link("facebook")
+
+@pytest.mark.regress
+@allure.title("Открытие страницы социальной сети Linkedin")
+def test_open_linkedin(browser):
+    main_page = MainPage(browser)
+    main_page.open()
+    main_page.auth("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(browser)
+    inventory_page.click_on_social_link("linkedin")
