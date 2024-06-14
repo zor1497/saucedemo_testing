@@ -16,6 +16,10 @@ class BasePage:
     LOGOUT_SIDEBAR_LINK = ("id", "logout_sidebar_link")
     RESET_SIDEBAR_LINK = ("id", "reset_sidebar_link")
     TITLE = ("xpath", "//span[@data-test='title']")
+    TWITTER_LINK = ("xpath", "//a[@data-test='social-twitter']")
+    FACEBOOK_LINK = ("xpath", "//a[@data-test='social-facebook']")
+    LINKEDIN_LINK = ("xpath", "//a[@data-test='social-linkedin']")
+
 
     # CONSTRUCTOR
     def __init__(self, browser):
@@ -65,6 +69,18 @@ class BasePage:
         with allure.step("Проверка открытия страницы авторизации"):
             assert self.get_current_url() == "https://www.saucedemo.com/"
 
+    @allure.step("Открытие страницы социальной сети")
+    def click_on_social_link(self, source):
+        if source == "twitter":
+            self.find_element(self.TWITTER_LINK).click()
+        elif source == "facebook":
+            self.find_element(self.FACEBOOK_LINK).click()
+        elif source == "linkedin":
+            self.find_element(self.LINKEDIN_LINK).click()
+        new_window = self.browser.window_handles[1]
+        self.browser.switch_to.window(new_window)
+        with allure.step(f"Проверка открытия страницы {source}"):
+            assert source in self.get_current_url()
 
 
 
