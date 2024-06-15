@@ -269,3 +269,25 @@ def test_open_linkedin(browser):
     main_page.auth("standard_user", "secret_sauce")
     inventory_page = InventoryPage(browser)
     inventory_page.click_on_social_link("linkedin")
+
+
+@pytest.mark.smoke
+@allure.title("Переход на страницу 'Inventory' со страницы 'Complete'")
+def test_open_inventory_page_from_complete_page(browser):
+    main_page = MainPage(browser)
+    main_page.open()
+    main_page.auth("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(browser)
+    inventory_page.open_item_page()
+    item_page = ItemPage(browser)
+    item_page.add_item_into_basket()
+    item_page.open_basket()
+    basket_page = BasketPage(browser)
+    basket_page.click_on_checkout_button()
+    checkout_page = CheckoutPage(browser)
+    checkout_page.fill_recipient_form("Ivan", "Ivanov", "12345")
+    checkout_page.click_on_continue_button()
+    overview_page = OverviewPage(browser)
+    overview_page.click_on_finish_button()
+    complete_page = CompletePage(browser)
+    complete_page.click_on_back_home_button()

@@ -11,6 +11,8 @@ class CompletePage(BasePage):
     @allure.step("Переход на страницу 'Inventory'")
     def click_on_back_home_button(self):
         self.find_element(self.BACK_HOME_BUTTON).click()
+        with allure.step('Проверка открытия страницы "Inventory"'):
+            assert "inventory" in self.get_current_url()
 
     # SHOULD_BE
     @allure.step("Проверка отображения уведомления благодарности за заказ")
