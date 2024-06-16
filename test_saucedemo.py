@@ -291,3 +291,14 @@ def test_open_inventory_page_from_complete_page(browser):
     overview_page.click_on_finish_button()
     complete_page = CompletePage(browser)
     complete_page.click_on_back_home_button()
+
+@pytest.mark.smoke
+@allure.title("Переход на страницу 'Inventory' со страницы 'Basket'")
+def test_open_inventory_page_from_basket_page(browser):
+    main_page = MainPage(browser)
+    main_page.open()
+    main_page.auth("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(browser)
+    inventory_page.open_basket()
+    basket_page = BasketPage(browser)
+    basket_page.click_on_continue_shopping_button()

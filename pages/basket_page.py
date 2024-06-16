@@ -12,12 +12,19 @@ class BasketPage(BasePage):
     ITEM_PRICE = ("xpath", ".//div[@data-test='inventory-item-price']")
     REMOVE_ITEM_FROM_BASKET_BUTTON = ("xpath", ".//button")
     CHECKOUT_BUTTON = ("id", "checkout")
+    CONTINUE_SHOPPING_BUTTON = ("id", "continue-shopping")
 
     # ACTIONS
     @allure.step("Открытие страницы заполнения данных о получателе")
     def click_on_checkout_button(self):
         self.find_element(self.CHECKOUT_BUTTON).click()
         assert self.browser.current_url == "https://www.saucedemo.com/checkout-step-one.html"
+
+    @allure.step("Нажатие на кнопку 'Continue Shopping'")
+    def click_on_continue_shopping_button(self):
+        self.find_element(self.CONTINUE_SHOPPING_BUTTON).click()
+        with allure.step("Проверка открытия страницы 'Inventory'"):
+            assert "inventory" in self.get_current_url()
 
     # SHOULD BE
 
@@ -65,7 +72,6 @@ class BasketPage(BasePage):
     @allure.step("Проверка отсутствия товаров в корзине")
     def should_be_basket_empty(self):
         assert len(self.find_elements(self.ITEM_NAME)) == 0
-
 
 
 
