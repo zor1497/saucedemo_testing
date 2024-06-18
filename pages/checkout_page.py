@@ -41,6 +41,12 @@ class CheckoutPage(BasePage):
     def click_on_continue_button(self):
         self.find_element(self.CONTINUE_BUTTON).click()
 
+    @allure.step("Возврат на страницу 'Basket'")
+    def click_on_cancel_button(self):
+        self.find_element(self.CANCEL_BUTTON).click()
+        with allure.step("Проверка открытия страницы 'Basket'"):
+            assert "cart" in self.get_current_url()
+
     # SHOULD BE
     @allure.step("Проверка отображения уведомления о незаполненном имени получателя")
     def should_be_empty_first_name_notify(self):

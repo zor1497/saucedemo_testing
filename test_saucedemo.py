@@ -302,3 +302,16 @@ def test_open_inventory_page_from_basket_page(browser):
     inventory_page.open_basket()
     basket_page = BasketPage(browser)
     basket_page.click_on_continue_shopping_button()
+
+@pytest.mark.smoke
+@allure.title("Переход на страницу 'Basket' со страницы 'Checkout'")
+def test_open_basket_page_from_checkout_page(browser):
+    main_page = MainPage(browser)
+    main_page.open()
+    main_page.auth("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(browser)
+    inventory_page.open_basket()
+    basket_page = BasketPage(browser)
+    basket_page.click_on_checkout_button()
+    checkout_page = CheckoutPage(browser)
+    checkout_page.click_on_cancel_button()
