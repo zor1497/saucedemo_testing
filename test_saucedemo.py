@@ -315,3 +315,19 @@ def test_open_basket_page_from_checkout_page(browser):
     basket_page.click_on_checkout_button()
     checkout_page = CheckoutPage(browser)
     checkout_page.click_on_cancel_button()
+
+@pytest.mark.smoke
+@allure.title("Переход на страницу 'Inventory' со страницы 'Overview'")
+def test_open_inventory_page_from_overview_page(browser):
+    main_page = MainPage(browser)
+    main_page.open()
+    main_page.auth("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(browser)
+    inventory_page.open_basket()
+    basket_page = BasketPage(browser)
+    basket_page.click_on_checkout_button()
+    checkout_page = CheckoutPage(browser)
+    checkout_page.fill_recipient_form("Ivan", "Ivanov", "435676")
+    checkout_page.click_on_continue_button()
+    overview_page = OverviewPage(browser)
+    overview_page.click_on_cancel_button()
