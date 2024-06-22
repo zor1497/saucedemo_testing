@@ -9,6 +9,7 @@ class ItemPage(BasePage):
     ITEM_PRICE = ("xpath", ".//div[@data-test='inventory-item-price']")
     ADD_ITEM_TO_BASKET_BUTTON = ("xpath", ".//button[@id[contains(.,'add')]]")
     REMOVE_ITEM_FROM_BASKET_BUTTON = ("xpath", ".//button[@id[contains(.,'remove')]]")
+    BACK_TO_PRODUCTS_BUTTON = ("id", "back-to-products")
 
     # ACTIONS
     @allure.step("Добавление товара в корзину")
@@ -29,3 +30,9 @@ class ItemPage(BasePage):
         self.find_element(self.REMOVE_ITEM_FROM_BASKET_BUTTON).click()
         assert self.find_element(self.REMOVE_ITEM_FROM_BASKET_BUTTON) == "Элемент не найден"
         return name_deleted_item
+
+    @allure.step("Переход на страницу 'Inventory' со страницы товара")
+    def click_on_back_to_products_button(self):
+        self.find_element(self.BACK_TO_PRODUCTS_BUTTON).click()
+        with allure.step("Проверка открытия страницы 'Inventory'"):
+            assert "inventory" in self.get_current_url()

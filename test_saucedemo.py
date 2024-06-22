@@ -331,3 +331,14 @@ def test_open_inventory_page_from_overview_page(browser):
     checkout_page.click_on_continue_button()
     overview_page = OverviewPage(browser)
     overview_page.click_on_cancel_button()
+
+@pytest.mark.smoke
+@allure.title("Переход на страницу 'Inventory' со страницы товара")
+def test_open_inventory_page_from_item_page(browser):
+    main_page = MainPage(browser)
+    main_page.open()
+    main_page.auth("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(browser)
+    inventory_page.open_item_page()
+    item_page = ItemPage(browser)
+    item_page.click_on_back_to_products_button()
