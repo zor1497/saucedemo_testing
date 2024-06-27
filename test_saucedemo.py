@@ -342,3 +342,20 @@ def test_open_inventory_page_from_item_page(browser):
     inventory_page.open_item_page()
     item_page = ItemPage(browser)
     item_page.click_on_back_to_products_button()
+
+@pytest.mark.smoke
+@allure.title("Соответствие количества добавленных товаров с количеством товаров в корзине после релогина")
+def test_equals_count_added_items_with_items_in_basket(browser):
+    main_page = MainPage(browser)
+    main_page.open()
+    main_page.auth("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(browser)
+    added_items_count = len(inventory_page.add_specified_count_items_into_basket(5))
+    inventory_page.open_sidebar()
+    inventory_page.click_on_logout_link()
+    main_page = MainPage(browser)
+    main_page.auth("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(browser)
+    inventory_page.should_be_equals_count_added_items_with_items_in_basket(added_items_count)
+
+

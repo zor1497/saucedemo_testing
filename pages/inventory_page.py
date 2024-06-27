@@ -31,6 +31,21 @@ class InventoryPage(BasePage):
             items.append(item)
         return items
 
+    @allure.step("Добавление указанного количества товаров в корзину")
+    def add_specified_count_items_into_basket(self, count):
+        items = []
+        for _item in self.browser.find_elements(*self.ITEM)[0:count]:
+            item = {
+                'name': _item.find_element(*self.ITEM_NAME).text,
+                'desc': _item.find_element(*self.ITEM_DESC).text,
+                'price': _item.find_element(*self.ITEM_PRICE).text
+            }
+            add_item_to_basket_button = _item.find_element(*self.ADD_ITEM_TO_BASKET_BUTTON)
+            add_item_to_basket_button.click()
+            assert "Remove" == self.find_element(self.ITEM).find_element(*self.REMOVE_ITEM_FROM_BASKET_BUTTON).text
+            items.append(item)
+        return items
+
     @allure.step("Открытие страницы товара")
     def open_item_page(self):
         item = self.find_element(self.ITEM)
@@ -42,6 +57,15 @@ class InventoryPage(BasePage):
     def sort_items(self, sort_type):
         sort_container = Select(self.find_element(self.PRODUCT_SORT_CONTAINER))
         sort_container.select_by_value(sort_type)
+
+    @allure.step("Удаление всех товаров из корзины")
+    def remove_all_items_from_basket(self):
+        remove_buttons = self.find_elements(self.REMOVE_ITEM_FROM_BASKET_BUTTON)
+        assert len(remove_buttons) > 0, "Товаров в корзине нет"
+        for button in remove_buttons:
+            button.click()
+        assert len(self.find_elements(self.REMOVE_ITEM_FROM_BASKET_BUTTON)) == 0, "В корзине остались товары"
+
 
     # SHOULD BE
     @allure.step("Проверка сортировки товаров по возрастанию цены")
@@ -80,13 +104,11 @@ class InventoryPage(BasePage):
             assert max_name >= item_name
             max_name = item_name
 
-    @allure.step("Удаление всех товаров из корзины")
-    def remove_all_items_from_basket(self):
-        remove_buttons = self.find_elements(self.REMOVE_ITEM_FROM_BASKET_BUTTON)
-        assert len(remove_buttons) > 0, "Товаров в корзине нет"
-        for button in remove_buttons:
-            button.click()
-        assert len(self.find_elements(self.REMOVE_ITEM_FROM_BASKET_BUTTON)) == 0, "В корзине остались товары"
+    @allure.step("Проверка наличия в корзине того количества товаров, которые были в неё добавлены")
+    def should_be_equals_count_added_items_with_items_in_basket(self, count):
+        assert self.get_count_items_in_basket() == count
+
+
 
 
 

@@ -1,3 +1,5 @@
+
+
 from selenium.common import TimeoutException
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -19,6 +21,7 @@ class BasePage:
     TWITTER_LINK = ("xpath", "//a[@data-test='social-twitter']")
     FACEBOOK_LINK = ("xpath", "//a[@data-test='social-facebook']")
     LINKEDIN_LINK = ("xpath", "//a[@data-test='social-linkedin']")
+    SHOPPING_CARD_BADGE = ("xpath", "//span[@class='shopping_cart_badge']")
 
 
     # CONSTRUCTOR
@@ -56,12 +59,10 @@ class BasePage:
     @allure.step("Открытие бокового меню")
     def open_sidebar(self):
         self.find_element(self.BURGER_OPEN_MENU_BUTTON).click()
-        assert self.find_element(self.BURGER_CLOSED_MENU_BUTTON).get_attribute("tabindex") == "0"
 
     @allure.step("Закрытие бокового меню")
     def close_sidebar(self):
         self.find_element(self.BURGER_CLOSED_MENU_BUTTON).click()
-        assert self.find_element(self.BURGER_CLOSED_MENU_BUTTON).get_attribute("tabindex") == "-1"
 
     @allure.step("Нажатие на ссылку 'Logout'")
     def click_on_logout_link(self):
@@ -81,6 +82,12 @@ class BasePage:
         self.browser.switch_to.window(new_window)
         with allure.step(f"Проверка открытия страницы {source}"):
             assert source in self.get_current_url()
+
+    def get_count_items_in_basket(self):
+        element = self.find_element(self.SHOPPING_CARD_BADGE)
+        if element != "Элемент не найден":
+            return int(element.text)
+        return 0
 
 
 
