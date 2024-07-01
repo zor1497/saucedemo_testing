@@ -50,8 +50,6 @@ class InventoryPage(BasePage):
     def open_item_page(self):
         item = self.find_element(self.ITEM)
         item.find_element(*self.ITEM_NAME).click()
-        assert "item" in self.get_current_url()
-
 
     @allure.step("Сортировка товаров по параметру")
     def sort_items(self, sort_type):

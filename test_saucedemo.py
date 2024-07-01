@@ -358,4 +358,19 @@ def test_equals_count_added_items_with_items_in_basket(browser):
     inventory_page = InventoryPage(browser)
     inventory_page.should_be_equals_count_added_items_with_items_in_basket(added_items_count)
 
+@pytest.mark.smoke
+@allure.title("Открытие страницы товара со страницы корзины")
+def test_open_item_page_from_basket_page(browser):
+    main_page = MainPage(browser)
+    main_page.open()
+    main_page.auth("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(browser)
+    inventory_page.open_item_page()
+    item_page = ItemPage(browser)
+    item_page.add_item_into_basket()
+    item_page.open_basket()
+    basket_page = BasketPage(browser)
+    basket_page.open_item_page()
+
+
 

@@ -1,7 +1,5 @@
 import allure
 from pages.base_page import BasePage
-
-
 class BasketPage(BasePage):
 
     # LOCATORS
@@ -25,6 +23,12 @@ class BasketPage(BasePage):
         self.find_element(self.CONTINUE_SHOPPING_BUTTON).click()
         with allure.step("Проверка открытия страницы 'Inventory'"):
             assert "inventory" in self.get_current_url()
+
+    @allure.step("Открытие страницы товара")
+    def open_item_page(self):
+        self.find_element(self.ITEM_NAME).click()
+        with allure.step("Проверка открытия страницы товара"):
+            assert "inventory-item" in self.get_current_url()
 
     # SHOULD BE
 
