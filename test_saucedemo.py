@@ -373,4 +373,23 @@ def test_open_item_page_from_basket_page(browser):
     basket_page.open_item_page()
 
 
+@pytest.mark.smoke
+@allure.title("Наличие логотипа Swag Labs в шапке сайта")
+def test_visibility_of_logo_in_header(browser):
+    main_page = MainPage(browser)
+    main_page.open()
+    main_page.auth("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(browser)
+    inventory_page.should_be_visibility_of_logo()
 
+@pytest.mark.smoke
+@allure.title("Открытие страницы 'Inventory' из бокового меню")
+def test_open_inventory_page_from_sidebar(browser):
+    main_page = MainPage(browser)
+    main_page.open()
+    main_page.auth("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(browser)
+    inventory_page.open_item_page()
+    item_page = ItemPage(browser)
+    item_page.open_sidebar()
+    item_page.click_on_all_items_link()

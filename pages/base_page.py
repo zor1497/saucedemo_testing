@@ -22,7 +22,7 @@ class BasePage:
     FACEBOOK_LINK = ("xpath", "//a[@data-test='social-facebook']")
     LINKEDIN_LINK = ("xpath", "//a[@data-test='social-linkedin']")
     SHOPPING_CARD_BADGE = ("xpath", "//span[@class='shopping_cart_badge']")
-
+    LOGO = ("xpath", "//div[@class='app_logo']")
 
     # CONSTRUCTOR
     def __init__(self, browser):
@@ -64,6 +64,13 @@ class BasePage:
     def close_sidebar(self):
         self.find_element(self.BURGER_CLOSED_MENU_BUTTON).click()
 
+    @allure.step("Нажатие на ссылку 'All items'")
+    def click_on_all_items_link(self):
+        self.find_element(self.INVENTORY_SIDEBAR_LINK).click()
+        with allure.step("Проверка открытия страницы Inventory"):
+            assert "inventory" in self.get_current_url()
+
+
     @allure.step("Нажатие на ссылку 'Logout'")
     def click_on_logout_link(self):
         self.find_element(self.LOGOUT_SIDEBAR_LINK).click()
@@ -88,6 +95,19 @@ class BasePage:
         if element != "Элемент не найден":
             return int(element.text)
         return 0
+
+
+
+    # SHOULD BE
+
+    @allure.step("Проверка отображения логотипа Swag Labs")
+    def should_be_visibility_of_logo(self):
+        logo = self.find_element(self.LOGO)
+        assert logo.text == "Swag Labs"
+
+
+
+
 
 
 
