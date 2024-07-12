@@ -102,9 +102,9 @@ class InventoryPage(BasePage):
             assert max_name >= item_name
             max_name = item_name
 
-    @allure.step("Проверка наличия в корзине того количества товаров, которые были в неё добавлены")
-    def should_be_equals_count_added_items_with_items_in_basket(self, count):
-        assert self.get_count_items_in_basket() == count
+
+
+
 
 
 

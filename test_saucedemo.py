@@ -17,6 +17,7 @@ def test_auth_with_valid_login_and_password(browser):
     main_page.auth("standard_user", "secret_sauce")
     main_page.should_be_open_inventory_page()
 
+
 @pytest.mark.regress
 @allure.title("Авторизация с незаполненным логином и паролем")
 def test_auth_with_empty_login_and_password(browser):
@@ -24,6 +25,7 @@ def test_auth_with_empty_login_and_password(browser):
     main_page.open()
     main_page.auth("", "")
     main_page.should_be_error_about_empty_login()
+
 
 @pytest.mark.smoke
 @allure.title("Авторизация с заполненным логином, но незаполненным паролем")
@@ -33,6 +35,7 @@ def test_auth_with_valid_login_and_empty_password(browser):
     main_page.auth("123", "")
     main_page.should_be_error_about_empty_password()
 
+
 @pytest.mark.regress
 @allure.title("Авторизация под пользователем с заблокированной учетной записью")
 def test_auth_with_locked_account(browser):
@@ -40,6 +43,7 @@ def test_auth_with_locked_account(browser):
     main_page.open()
     main_page.auth("locked_out_user", "secret_sauce")
     main_page.should_be_error_about_locked_user()
+
 
 @pytest.mark.smoke
 @allure.title("Добавление товара в корзину со страницы товара")
@@ -55,6 +59,7 @@ def test_add_one_item_into_basket(browser):
     basket_page = BasketPage(browser)
     basket_page.should_be_item_in_basket(item)
 
+
 @pytest.mark.smoke
 @allure.title("Добавление товаров в корзину со страницы Inventory")
 def test_add_all_items_into_basket(browser):
@@ -67,6 +72,7 @@ def test_add_all_items_into_basket(browser):
     basket_page = BasketPage(browser)
     basket_page.should_be_all_items_in_basket(items_list)
 
+
 @pytest.mark.regress
 @allure.title("Сортировка товаров по возрастанию цены")
 def test_sort_items_low_high_price(browser):
@@ -76,6 +82,7 @@ def test_sort_items_low_high_price(browser):
     inventory_page = InventoryPage(browser)
     inventory_page.sort_items("lohi")
     inventory_page.should_be_items_sort_low_high_price()
+
 
 @pytest.mark.regress
 @allure.title("Сортировка товаров по убыванию цены")
@@ -87,6 +94,7 @@ def test_sort_items_high_low_price(browser):
     inventory_page.sort_items("hilo")
     inventory_page.should_be_items_sort_high_low_price()
 
+
 @allure.title("Сортировка товаров по возрастанию названия")
 def test_sort_items_a_z(browser):
     main_page = MainPage(browser)
@@ -95,6 +103,7 @@ def test_sort_items_a_z(browser):
     inventory_page = InventoryPage(browser)
     inventory_page.sort_items("az")
     inventory_page.should_be_items_sort_a_z()
+
 
 @pytest.mark.regress
 @allure.title("Сортировка товаров по убыванию названия")
@@ -144,6 +153,7 @@ def test_order_with_empty_first_name_recipient(browser):
     checkout_page.click_on_continue_button()
     checkout_page.should_be_empty_first_name_notify()
 
+
 @pytest.mark.regress
 @allure.title("Оформление заказа с незаполненной фамилией получателя")
 def test_order_with_empty_last_name_recipient(browser):
@@ -161,6 +171,7 @@ def test_order_with_empty_last_name_recipient(browser):
     checkout_page.fill_recipient_form("Ivan", "", "155258")
     checkout_page.click_on_continue_button()
     checkout_page.should_be_empty_last_name_notify()
+
 
 @pytest.mark.regress
 @allure.title("Оформление заказа с незаполненном индексе получателя")
@@ -210,6 +221,7 @@ def test_remove_item_from_basket_on_inventory_page(browser):
     basket_page = BasketPage(browser)
     basket_page.should_be_basket_empty()
 
+
 @pytest.mark.smoke
 @allure.title("Выход из системы")
 def test_logout(browser):
@@ -252,6 +264,7 @@ def test_open_twitter(browser):
     inventory_page = InventoryPage(browser)
     inventory_page.click_on_social_link("twitter")
 
+
 @pytest.mark.regress
 @allure.title("Открытие страницы социальной сети Facebook")
 def test_open_facebook(browser):
@@ -260,6 +273,7 @@ def test_open_facebook(browser):
     main_page.auth("standard_user", "secret_sauce")
     inventory_page = InventoryPage(browser)
     inventory_page.click_on_social_link("facebook")
+
 
 @pytest.mark.regress
 @allure.title("Открытие страницы социальной сети Linkedin")
@@ -292,6 +306,7 @@ def test_open_inventory_page_from_complete_page(browser):
     complete_page = CompletePage(browser)
     complete_page.click_on_back_home_button()
 
+
 @pytest.mark.smoke
 @allure.title("Переход на страницу 'Inventory' со страницы 'Basket'")
 def test_open_inventory_page_from_basket_page(browser):
@@ -302,6 +317,7 @@ def test_open_inventory_page_from_basket_page(browser):
     inventory_page.open_basket()
     basket_page = BasketPage(browser)
     basket_page.click_on_continue_shopping_button()
+
 
 @pytest.mark.smoke
 @allure.title("Переход на страницу 'Basket' со страницы 'Checkout'")
@@ -315,6 +331,7 @@ def test_open_basket_page_from_checkout_page(browser):
     basket_page.click_on_checkout_button()
     checkout_page = CheckoutPage(browser)
     checkout_page.click_on_cancel_button()
+
 
 @pytest.mark.smoke
 @allure.title("Переход на страницу 'Inventory' со страницы 'Overview'")
@@ -332,6 +349,7 @@ def test_open_inventory_page_from_overview_page(browser):
     overview_page = OverviewPage(browser)
     overview_page.click_on_cancel_button()
 
+
 @pytest.mark.smoke
 @allure.title("Переход на страницу 'Inventory' со страницы товара")
 def test_open_inventory_page_from_item_page(browser):
@@ -342,6 +360,7 @@ def test_open_inventory_page_from_item_page(browser):
     inventory_page.open_item_page()
     item_page = ItemPage(browser)
     item_page.click_on_back_to_products_button()
+
 
 @pytest.mark.smoke
 @allure.title("Соответствие количества добавленных товаров с количеством товаров в корзине после релогина")
@@ -356,7 +375,8 @@ def test_equals_count_added_items_with_items_in_basket(browser):
     main_page = MainPage(browser)
     main_page.auth("standard_user", "secret_sauce")
     inventory_page = InventoryPage(browser)
-    inventory_page.should_be_equals_count_added_items_with_items_in_basket(added_items_count)
+    inventory_page.should_be_specified_items_count_in_basket(added_items_count)
+
 
 @pytest.mark.smoke
 @allure.title("Открытие страницы товара со страницы корзины")
@@ -382,6 +402,7 @@ def test_visibility_of_logo_in_header(browser):
     inventory_page = InventoryPage(browser)
     inventory_page.should_be_visibility_of_logo()
 
+
 @pytest.mark.smoke
 @allure.title("Открытие страницы 'Inventory' из бокового меню")
 def test_open_inventory_page_from_sidebar(browser):
@@ -393,3 +414,16 @@ def test_open_inventory_page_from_sidebar(browser):
     item_page = ItemPage(browser)
     item_page.open_sidebar()
     item_page.click_on_all_items_link()
+
+@pytest.mark.smoke
+@allure.title("Сброс товаров в корзине по нажатию кнопки 'Reset App State'")
+def test_reset_items_in_basket_after_press_reset_app_state_button(browser):
+    main_page = MainPage(browser)
+    main_page.open()
+    main_page.auth("standard_user", "secret_sauce")
+    inventory_page = InventoryPage(browser)
+    inventory_page.add_all_items_into_basket()
+    inventory_page.open_sidebar()
+    inventory_page.click_on_reset_app_state_button()
+    inventory_page.refresh_page()
+    inventory_page.should_be_specified_items_count_in_basket(0)

@@ -49,7 +49,14 @@ class BasePage:
     def get_current_url(self):
         return self.browser.current_url
 
+    def refresh_page(self):
+        self.browser.refresh()
+
     # ACTIONS
+    @allure.step("Нажатие кнопки 'Reset App State'")
+    def click_on_reset_app_state_button(self):
+        self.find_element(self.RESET_SIDEBAR_LINK).click()
+
     @allure.step("Открытие страницы корзины")
     def open_basket(self):
         basket_link = self.find_element(self.BASKET_LINK)
@@ -96,16 +103,15 @@ class BasePage:
             return int(element.text)
         return 0
 
-
-
     # SHOULD BE
-
     @allure.step("Проверка отображения логотипа Swag Labs")
     def should_be_visibility_of_logo(self):
         logo = self.find_element(self.LOGO)
         assert logo.text == "Swag Labs"
 
-
+    @allure.step("Проверка наличия в корзине того количества товаров, которое передается в параметре")
+    def should_be_specified_items_count_in_basket(self, count):
+        assert self.get_count_items_in_basket() == count
 
 
 
