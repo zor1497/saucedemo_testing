@@ -95,7 +95,7 @@ class BasePage:
         new_window = self.browser.window_handles[1]
         self.browser.switch_to.window(new_window)
         with allure.step(f"Проверка открытия страницы {source}"):
-            assert source in self.get_current_url()
+            assert source in self.get_current_url(), "Ссылка не смогла открыться"
 
     def get_count_items_in_basket(self):
         element = self.find_element(self.SHOPPING_CARD_BADGE)
